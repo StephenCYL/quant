@@ -1,0 +1,11 @@
+# 不再追踪本地数据和回测输出
+data/
+*/backtests/
+*.log
+
+# VS Code 配置
+.vscode/
+
+# Python 常见临时文件
+__pycache__/
+*.pyc
