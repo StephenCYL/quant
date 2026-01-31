@@ -3,6 +3,10 @@ data/
 */backtests/
 *.log
 
+# BUT: keep the backtest *summaries* under reports/backtests tracked
+!reports/backtests/
+!reports/backtests/**
+
 # VS Code 配置
 .vscode/
 
