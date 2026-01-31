@@ -1,0 +1,12 @@
+{
+  "start_equity": 100000,
+  "end_equity": 101692.55,
+  "net_profit_pct": 1.693,
+  "drawdown_pct": 2.2,
+  "total_fees": 3.68,
+  "sharpe_ratio": 8.857,
+  "beta": 0.997,
+  "alpha": -0.004,
+  "portfolio_turnover_pct": 19.94,
+  "total_orders": 1
+}
