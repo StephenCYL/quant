@@ -19,6 +19,23 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
+def ensure_qc_login() -> None:
+    """Log in to QuantConnect using env vars only.
+
+    Required env vars:
+      - QC_USER_ID
+      - QC_API_TOKEN
+
+    We send the token through stdin to avoid leaking it via process args.
+    """
+    uid = os.getenv("QC_USER_ID")
+    tok = os.getenv("QC_API_TOKEN")
+    if not uid or not tok:
+        raise SystemExit("ERROR: QC_USER_ID or QC_API_TOKEN is not set")
+
+    subprocess.run(["lean", "login", "-u", uid], input=tok + "\n", text=True, check=True)
+
+
 def run(cmd: list[str]) -> None:
     subprocess.run(cmd, check=True)
 
@@ -49,6 +66,9 @@ def main() -> None:
         "name": args.name,
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
     }, indent=2, ensure_ascii=False) + "\n")
+
+    # Always authenticate from env vars (do not rely on stored tokens)
+    ensure_qc_login()
 
     cmd = ["lean", "cloud", "backtest", args.project, "--name", args.name]
     if args.push:
